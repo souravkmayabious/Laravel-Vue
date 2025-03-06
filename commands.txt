@@ -10,3 +10,11 @@ npm run dev
 
 
 add   'resources/css/app.css'    in vite.config.js  under laravel -> plugin ->input
+
+update welcome.blade.php & web router for connect vue js
+
+
+npm install axios
+npm install vue-router
+
+npm install bootstrap@5.3.0-alpha1 @popperjs/core
