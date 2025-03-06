@@ -22,3 +22,12 @@ npm install bootstrap@5.3.0-alpha1 @popperjs/core
 
 php artisan install:api
 
+composer require laravel/sanctum
+
+
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+
+
+php artisan storage:link
+
+

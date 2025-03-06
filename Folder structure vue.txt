@@ -1,0 +1,7 @@
+
+resources/
+└── js/
+    ├── components/      <-- Other Vue components
+    ├── router.js        <-- Vue Router setup
+    ├── app.js           <-- Vue app entry point
+    └── App.vue          <-- Your root Vue component
