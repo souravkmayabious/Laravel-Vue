@@ -1,1 +1,9 @@
 composer create-project laravel/laravel laravel-vue
+
+composer require laravel/ui
+
+php artisan ui vue 
+
+npm install                 if not work add   --force 
+
+npm run dev
