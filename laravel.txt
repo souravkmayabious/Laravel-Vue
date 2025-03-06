@@ -1,3 +1,10 @@
 php artisan make:migration create_tasks_table
 php artisan migrate
 php artisan make:model Task
+
+
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+php artisan clear-compiled
+php artisan config:cache

@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('mobile')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role',['admin','editor','user'])->default('user');
+            $table->enum('created_by',['admin','editor','self'])->default('self');
             $table->rememberToken();
             $table->timestamps();
         });
