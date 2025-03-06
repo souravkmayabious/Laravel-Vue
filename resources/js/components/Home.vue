@@ -8,3 +8,9 @@ export default {
     name: 'Home'
 }
 </script>
+
+<style scoped>
+    p{
+        color:red
+    }
+</style>
