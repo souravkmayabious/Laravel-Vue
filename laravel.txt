@@ -1,0 +1,3 @@
+php artisan make:migration create_tasks_table
+php artisan migrate
+php artisan make:model Task
