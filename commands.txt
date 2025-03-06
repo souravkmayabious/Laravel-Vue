@@ -7,3 +7,6 @@ php artisan ui vue
 npm install                 if not work add   --force 
 
 npm run dev
+
+
+add   'resources/css/app.css'    in vite.config.js  under laravel -> plugin ->input
