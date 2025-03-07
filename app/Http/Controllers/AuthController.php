@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 
@@ -6,6 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\OtpVerificationMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 class AuthController extends Controller
@@ -31,10 +35,53 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $user->createToken('YourAppName')->plainTextToken;
+        $otp = rand(100000, 999999);
+        $user->otp = $otp;
+        $user->otp_verified = false;
+        $user->save();
 
-        return response()->json(['token' => $token, 'user' => $user], 201);
+        // Send OTP email
+        Mail::to($user->email)->send(new OtpVerificationMail($otp));
+
+        return response()->json(['message' => 'User registered. Please check your email for OTP verification.'], 201);
     }
+
+
+
+
+//verify otp
+    public function verifyOtp(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'otp' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || $user->otp !== $request->otp) {
+            return response()->json(['message' => 'Invalid OTP.'], 400);
+        }
+
+        // Mark OTP as verified
+        $user->otp_verified = true;
+        $user->otp='';
+        $user->email_verified_at= time();
+        $user->status='verified';
+        $user->save();
+
+        $token = $user->createToken('SOURAV.K')->plainTextToken;
+
+        return response()->json(['message' => 'OTP verified successfully.', 'token' => $token, 'user' => $user], 200);
+    }
+
+
+
+
 
     // Login User
     public function login(Request $request)
@@ -81,7 +128,7 @@ class AuthController extends Controller
         // $userId = $request->user()->id;
         $user = $request->user();
         $userId = $user->id;
-        $role = $user->role;  
+        $role = $user->role;
 
         // Return the user ID in JSON format
         return response()->json([
