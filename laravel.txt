@@ -8,3 +8,9 @@ php artisan view:clear
 php artisan route:clear
 php artisan clear-compiled
 php artisan config:cache
+
+
+
+
+php artisan make:migration add_otp_to_users_table --table=users
+php artisan make:mail OtpVerificationMail
