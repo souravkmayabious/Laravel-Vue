@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();  // Primary key (task's unique ID)
+            $table->foreignId('user_id')  // Foreign key to the users table
+                ->constrained()  // Automatically references users(id)
+                ->onDelete('cascade');  // Delete tasks if the associated user is deleted
             $table->string('title');  // Title of the task
             $table->text('description');  // Description of the task
-            $table->foreignId('user_id')  // Foreign key to the users table
-                  ->constrained()  // Automatically references users(id)
-                  ->onDelete('cascade');  // Delete tasks if the associated user is deleted
+            $table->enum('status',['initial','completed'])->default('initial');
             $table->timestamps();  // Timestamps for created_at and updated_at
         });
     }
