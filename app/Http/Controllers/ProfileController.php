@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
@@ -44,5 +44,20 @@ class ProfileController extends Controller
         }
 
         return response()->json(['message' => 'No valid image file provided'], 400);
+    }
+
+
+
+
+    //delete profile picture
+    public function deleteProfileImage(Request $request){
+        $user = User::find($request->user()->id);
+        $imagePath = $user->profile_picture;
+        if ($imagePath && File::exists(public_path($imagePath))) {
+            File::delete(public_path($imagePath));
+        }
+        $user->profile_picture = null;
+        $user->save();
+        return response()->json(['message' => 'Profile removed successfully'], 200);
     }
 }
