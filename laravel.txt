@@ -14,3 +14,8 @@ php artisan config:cache
 
 php artisan make:migration add_otp_to_users_table --table=users
 php artisan make:mail OtpVerificationMail
+
+
+
+
+php artisan make:mail ResetPasswordMail

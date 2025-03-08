@@ -1,4 +1,5 @@
-<?// app/Mail/ResetPasswordMail.php
+<?php
+// app/Mail/ResetPasswordMail.php
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;

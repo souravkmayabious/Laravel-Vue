@@ -14,7 +14,7 @@ Route::get('user-id', [AuthController::class, 'getUserId'])->middleware('auth:sa
 Route::put('updateProfile', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
 Route::put('changePassword', [AuthController::class, 'changePassword'])->middleware('auth:sanctum');
 Route::put('forgotPassword', [AuthController::class, 'forgotPassword']);
-
+Route::post('reset-password', [AuthController::class, 'resetPassword']);
 
 //Task
 Route::post('task', [TaskController::class, 'createTask'])->middleware('auth:sanctum');

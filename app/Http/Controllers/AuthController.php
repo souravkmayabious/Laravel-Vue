@@ -227,5 +227,29 @@ class AuthController extends Controller
 
 
 
+    //reset password after --click forgot password mail
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required|string',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        // Find the user by token
+        $user = User::where('remember_token', $request->token)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found or token expired',], 400);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->remember_token = null;
+        $user->save();
+
+        return response()->json(['message' => 'Password has been reset successfully'], 200);
+    }
 }
