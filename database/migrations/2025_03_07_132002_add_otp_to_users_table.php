@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('otp')->nullable();
             $table->boolean('otp_verified')->default(false);
-            $table->enum('status',['initial','verified','blocked'])->default('initial');
+            $table->enum('status',['initial','verified','blocked','deleted'])->default('initial');
         });
     }
 

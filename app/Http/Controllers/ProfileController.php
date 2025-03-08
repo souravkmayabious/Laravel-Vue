@@ -60,4 +60,17 @@ class ProfileController extends Controller
         $user->save();
         return response()->json(['message' => 'Profile removed successfully'], 200);
     }
+
+
+
+    //delete user
+    public function deleteUser(Request $request){
+        $user = User::find($request->user()->id);
+        //make soft delete
+        $user->status = 'deleted';
+        $user->save();
+        return response()->json(['message' => 'Profile deleted successfully'], 200);
+    }
+
+
 }

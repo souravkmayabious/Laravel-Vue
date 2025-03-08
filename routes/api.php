@@ -19,7 +19,8 @@ Route::post('reset-password', [AuthController::class, 'resetPassword']);
 
 
 Route::post('update-profile-image', [ProfileController::class, 'updateProfileImage'])->middleware('auth:sanctum');
-Route::get('delete-profile-image', [ProfileController::class, 'deleteProfileImage'])->middleware('auth:sanctum');
+Route::delete('delete-profile-image', [ProfileController::class, 'deleteProfileImage'])->middleware('auth:sanctum');
+Route::delete('deleteUser', [ProfileController::class, 'deleteUser'])->middleware('auth:sanctum');
 
 //Task
 Route::post('task', [TaskController::class, 'createTask'])->middleware('auth:sanctum');
