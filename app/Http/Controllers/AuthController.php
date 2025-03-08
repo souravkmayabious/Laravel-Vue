@@ -166,7 +166,7 @@ class AuthController extends Controller
 
 
 
-    
+
 
 
     //change password
@@ -195,5 +195,36 @@ class AuthController extends Controller
         return response()->json(['message' => 'Password changed successfully.'], 200);
     }
 
-    
+
+
+
+    //forgotPassword
+    public function forgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json(['message' => 'Email not found'], 400);
+        }
+
+        $token = Str::random(60);
+        $user->remember_token = $token;
+        $user->save();
+        $resetLink = url('/api/reset-password?token=' . $token);
+
+        //Mail::to($request->email)->send(new ResetPasswordMail($resetLink));
+
+        return response()->json(['message' => 'Password reset link has been sent to your email.', 'link' => $resetLink], 200);
+    }
+
+
+
+
 }

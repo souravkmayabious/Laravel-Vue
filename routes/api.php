@@ -13,6 +13,8 @@ Route::get('user', [AuthController::class, 'user'])->middleware('auth:sanctum');
 Route::get('user-id', [AuthController::class, 'getUserId'])->middleware('auth:sanctum');
 Route::put('updateProfile', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
 Route::put('changePassword', [AuthController::class, 'changePassword'])->middleware('auth:sanctum');
+Route::put('forgotPassword', [AuthController::class, 'forgotPassword']);
+
 
 //Task
 Route::post('task', [TaskController::class, 'createTask'])->middleware('auth:sanctum');
