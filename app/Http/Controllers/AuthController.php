@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Mail\OtpVerificationMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Mail\ResetPasswordMail;
 
 
 class AuthController extends Controller
@@ -219,7 +220,7 @@ class AuthController extends Controller
         $user->save();
         $resetLink = url('/api/reset-password?token=' . $token);
 
-        //Mail::to($request->email)->send(new ResetPasswordMail($resetLink));
+        Mail::to($request->email)->send(new ResetPasswordMail($resetLink));
 
         return response()->json(['message' => 'Password reset link has been sent to your email.', 'link' => $resetLink], 200);
     }
