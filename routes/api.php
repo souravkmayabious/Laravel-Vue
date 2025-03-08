@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProfileController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('verify', [AuthController::class, 'verifyOtp']);
@@ -15,6 +16,9 @@ Route::put('updateProfile', [AuthController::class, 'updateProfile'])->middlewar
 Route::put('changePassword', [AuthController::class, 'changePassword'])->middleware('auth:sanctum');
 Route::put('forgotPassword', [AuthController::class, 'forgotPassword']);
 Route::post('reset-password', [AuthController::class, 'resetPassword']);
+
+
+Route::post('update-profile-image', [ProfileController::class, 'updateProfileImage'])->middleware('auth:sanctum');
 
 //Task
 Route::post('task', [TaskController::class, 'createTask'])->middleware('auth:sanctum');

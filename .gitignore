@@ -21,3 +21,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+
+# Ignore profile images folder
+/public/profile_images/

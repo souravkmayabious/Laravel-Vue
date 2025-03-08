@@ -19,3 +19,11 @@ php artisan make:mail OtpVerificationMail
 
 
 php artisan make:mail ResetPasswordMail
+
+
+mkdir -p storage/app/public/profile_images
+
+
+composer dump-autoload
+php artisan config:clear
+php artisan cache:clear
