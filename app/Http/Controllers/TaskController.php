@@ -56,29 +56,35 @@ class TaskController extends Controller
     public function viewAllWithFilter(Request $request)
     {
         $filter_status = $request->input('status', '');
-        $filter_by_user = $request->input('user', '');
+        $filter_by_user = $request->input('userid', '');
         $filter_by_date = $request->input('date', '');
         $perPage =  $request->input('per_page', 10);
         $page = $request->input('page', 1);
 
         $tasksQuery = Task::query();
-    
-        if ($filter_status) {
+
+        if ($filter_status !== '') { 
             $tasksQuery->where('status', $filter_status);
         }
-        
-        if ($filter_by_user) {
-            $tasksQuery->where('user_id', $filter_by_user); 
+
+        if ($filter_by_user !== '') { 
+            $tasksQuery->where('user_id', $filter_by_user);
         }
-        
-        if ($filter_by_date) {
+
+        if ($filter_by_date !== '') { 
             $tasksQuery->whereDate('created_at', '=', $filter_by_date);
         }
+
         $tasks = $tasksQuery->paginate($perPage, ['*'], 'page', $page);
-    
-        return response()->json(['tasks' => $tasks, 'message' => 'Filtered tasks'], 200);
+
+        return response()->json([
+            'tasks' => $tasks,
+            'message' => 'Filtered tasks',
+            'tasksQuery' => $tasksQuery->toSql() 
+        ], 200);
     }
-    
+
+
 
 
 
@@ -157,7 +163,7 @@ class TaskController extends Controller
 
         $validStatuses = ['initial', 'completed'];
         $status = $request->input('status');
-        
+
         if (!in_array($status, $validStatuses)) {
             return response()->json(['error' => 'Wrong status'], 403);
         }
