@@ -27,3 +27,7 @@ mkdir -p storage/app/public/profile_images
 composer dump-autoload
 php artisan config:clear
 php artisan cache:clear
+
+
+
+php artisan make:seeder AdminUserSeeder

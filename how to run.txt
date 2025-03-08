@@ -1,0 +1,7 @@
+php artisan migrate
+
+php artisan db:seed
+
+
+admin id :  souravk.mayabious@gmail.com      
+password : 12345678 
