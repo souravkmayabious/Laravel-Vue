@@ -49,7 +49,7 @@ class AuthController extends Controller
 
 
 
-//verify otp
+    //verify otp
     public function verifyOtp(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -69,9 +69,9 @@ class AuthController extends Controller
 
         // Mark OTP as verified
         $user->otp_verified = true;
-        $user->otp='';
-        $user->email_verified_at= time();
-        $user->status='verified';
+        $user->otp = '';
+        $user->email_verified_at = time();
+        $user->status = 'verified';
         $user->save();
 
         $token = $user->createToken('SOURAV.K')->plainTextToken;
@@ -136,4 +136,34 @@ class AuthController extends Controller
             'role' => $role
         ]);
     }
+
+
+
+
+
+    //update user Profile
+    public function updateProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'mobile' => 'required|string|max:15',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $userId = $request->user()->id;
+        $user = User::find($userId);
+
+        $user->name =  $request->input('name');
+        $user->mobile =  $request->input('mobile');
+
+        $user->save();
+
+        return response()->json(['user' => $user, 'message' => 'User update success'], 200);
+    }
+
+
+
 }
