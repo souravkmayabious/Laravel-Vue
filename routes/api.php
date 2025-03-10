@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('verify', [AuthController::class, 'verifyOtp']);
@@ -33,3 +34,5 @@ Route::delete('deleteTask/{id}', [TaskController::class, 'deleteTask'])->middlew
 Route::get('taskPaginate', [TaskController::class, 'viewAllPaginate'])->middleware('auth:sanctum');
 Route::put('taskStatusUpdate/{id}', [TaskController::class, 'updateStatus'])->middleware('auth:sanctum');
 Route::get('tasksWithFilter', [TaskController::class, 'viewAllWithFilter'])->middleware('auth:sanctum');
+
+Route::post('create-user',[UserController::class , 'addUser'])->middleware('auth:sanctum');
