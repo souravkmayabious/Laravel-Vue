@@ -44,4 +44,15 @@ class UserController extends Controller
 
 
 
+    public function accountList(Request $request){
+        $role = $request->user()->role;
+        if ($role !== 'admin') {
+            return response()->json(['error' => 'You are not authorized to do this'], 403);
+        }
+
+        $users = User::all();
+        return response()->json(['message' => 'All accounts list' , 'users'=>$users], 201);
+    }
+
+
 }    

@@ -36,3 +36,4 @@ Route::put('taskStatusUpdate/{id}', [TaskController::class, 'updateStatus'])->mi
 Route::get('tasksWithFilter', [TaskController::class, 'viewAllWithFilter'])->middleware('auth:sanctum');
 
 Route::post('create-user',[UserController::class , 'addUser'])->middleware('auth:sanctum');
+Route::get('account-list',[UserController::class , 'accountList'])->middleware('auth:sanctum');
