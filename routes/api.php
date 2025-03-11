@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FileController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('verify', [AuthController::class, 'verifyOtp']);
@@ -37,3 +38,8 @@ Route::get('tasksWithFilter', [TaskController::class, 'viewAllWithFilter'])->mid
 
 Route::post('create-user',[UserController::class , 'addUser'])->middleware('auth:sanctum');
 Route::get('account-list',[UserController::class , 'accountList'])->middleware('auth:sanctum');
+
+
+
+Route::post('/upload/local', [FileController::class, 'uploadLocal']);
+Route::post('/upload/cloudinary', [FileController::class, 'uploadCloudinary']);
