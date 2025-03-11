@@ -23,8 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'mobile',
-        'role',
-        'created_by'
+        'role','profile_picture',
+        'created_by','provider','provider_id',
     ];
 
     /**
@@ -33,8 +33,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
-        'remember_token','otp','otp_verified','email_verified_at'
+        'password','remember_token','otp','otp_verified','email_verified_at'
     ];
 
     /**
